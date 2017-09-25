@@ -9,14 +9,14 @@ class TestDataGrabber(unittest.TestCase):
 
     @unittest.expectedFailure
     def test_init_empty(self):
-        dg = data_grabber.DataGrabber()
+        data_grabber.DataGrabber()
 
     def test_init_arguments(self):
-        dg = data_grabber.DataGrabber(['-f'])
+        data_grabber.DataGrabber(['-f'])
 
     def test_argument_help(self):
         with self.assertRaises(SystemExit) as cm:
-            dg = data_grabber.DataGrabber(['-h'])
+            data_grabber.DataGrabber(['-h'])
         self.assertEqual(cm.exception.code, data_grabber.Codes.SUCCESS)
 
     def test_wrong_path(self):
