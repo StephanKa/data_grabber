@@ -20,7 +20,7 @@ class TestDataGrabber(unittest.TestCase):
         self.assertEqual(cm.exception.code, data_grabber.Codes.SUCCESS)
 
     def test_inpath_directory(self):
-        dg = data_grabber.DataGrabber(['--inpath=' + os.getcwd()])
+        dg = data_grabber.DataGrabber(['--inpath=' + os.getcwd() + '\\..'])
         dg.get_url_list()
 
     def test_wrong_path(self):
