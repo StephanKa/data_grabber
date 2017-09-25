@@ -75,8 +75,6 @@ class DataGrabber():
             elif(os.path.exists(output_file)):
                 print('Please delete existing file or use "--force" | "-f"!')
                 sys.exit(Codes.FILE_EXISTS)
-            else:
-                self.store_file(output_file, file_download)
         except Exception as e:
             print('Exception occured: {0}\nPlease check url and connectivity!'.format(str(e)))
             sys.exit(Codes.CONNECTION_PROBLEM)
