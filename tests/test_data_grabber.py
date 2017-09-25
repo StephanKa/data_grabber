@@ -47,5 +47,16 @@ class TestDataGrabber(unittest.TestCase):
             dg.get_url_list()
             dg.get_file_save_local(url, dg.generate_file_name(url))
 
+    def test_single_file(self):
+        dg = data_grabber.DataGrabber(['--single=../url_lists.txt'])
+        for url in dg.get_url_list():
+            dg.get_file_save_local(url, dg.generate_file_name(url))
+
+    def test_force_file_overwrite(self):
+        url = 'https://pixabay.com/static/uploads/photo/2012/04/12/23/47/car-30984_960_720.png'
+        dg = data_grabber.DataGrabber(['--force'])
+        dg.get_url_list()
+        dg.get_file_save_local(url, dg.generate_file_name(url))
+
 if __name__ == '__main__':
     unittest.main()
