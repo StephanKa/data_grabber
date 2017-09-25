@@ -105,23 +105,24 @@ class DataGrabber():
         ''' parse given arguments, do it case insensitive '''
         for in_parameter in arguments:
             # only single what will be parsed
-            if('--single' in in_parameter.lower() or '-s' in in_parameter.lower()):
+            param = in_parameter.lower()
+            if('--single' in param or '-s' in param):
                 self.single_file_only = True
                 self.input_path = (in_parameter.split('='))[1]
             # will set the inpath, where the text files are lay
-            if('--inpath' in in_parameter.lower() or '-i' in in_parameter.lower()):
+            if('--inpath' in param or '-i' in param):
                 self.input_path = (in_parameter.split('='))[1]
             # will set the outpath where the data files will be stored
-            if('--outpath' in in_parameter.lower() or '-o' in in_parameter.lower()):
+            if('--outpath' in param or '-o' in param):
                 self.output_path = (in_parameter.split('='))[1] + '\\'
             # keeps the original names from url and parse it correctly
-            if('--keepname' in in_parameter.lower() or '-k' in in_parameter.lower()):
+            if('--keepname' in param or '-k' in param):
                 self.keepname = True
             # will force to overwrite, if stored file exists
-            if('--force' in in_parameter.lower() or '-f' in in_parameter.lower()):
+            if('--force' in param or '-f' in param):
                 self.overwrite = True
             # give a help about all possible arguments
-            if('--help' in in_parameter.lower() or '-h' in in_parameter.lower()):
+            if('--help' in param or '-h' in param):
                 self.show_help()
 
     def show_help(self):

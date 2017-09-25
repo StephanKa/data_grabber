@@ -58,5 +58,10 @@ class TestDataGrabber(unittest.TestCase):
         dg.get_url_list()
         dg.get_file_save_local(url, dg.generate_file_name(url))
 
+    def test_output_file_parsing(self):
+        path = '../'
+        dg = data_grabber.DataGrabber(['--outpath=' + path])
+        self.assertEqual(dg.output_path, path)
+
 if __name__ == '__main__':
     unittest.main()
