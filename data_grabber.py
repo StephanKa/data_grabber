@@ -1,21 +1,24 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 import urllib2
 import sys
 import os
 import time
 
+
 class Codes():
+    """ Enumeration replacement """
     SUCCESS = 0
     CONNECTION_PROBLEM = 1
     PATH_NOT_VALID = 2
     FILE_EXISTS = 3
 
+
 class DataGrabber():
-    
+    """ class that can download links from www """
+
     def __init__(self, arguments):
-        ''' default input_path and output_path is the current working directory until 
+        ''' default input_path and output_path is the current working directory until
             it will be overwritten through arguments, see below '''
         self.input_path, self.output_path = os.getcwd(), os.getcwd()
         self.overwrite, self.keepname = False, False
@@ -49,20 +52,20 @@ class DataGrabber():
         else:
             print('Please verify the given input_path: {0}'.format(self.input_path))
             sys.exit(Codes.PATH_NOT_VALID)
-    
+
     def read_text_files(self, temp_url_list):
         ''' read url's from opened files '''
         # read all lines in txt file and save in url_list
         temp_list = temp_url_list.readlines()
         return temp_list
-    
+
     def store_file(self, path, file_download):
         ''' store the file to path '''
         file_data = file_download.read()
         self.generate_statistics(len(file_data))
-        with open(path,'wb') as output:
+        with open(path, 'wb') as output:
             output.write(file_data)
-    
+
     def get_file_save_local(self, input_url, output_file):
         ''' save the grabbed file with the generated or extracted file name '''
         try:
@@ -77,29 +80,29 @@ class DataGrabber():
         except Exception as e:
             print('Exception occured: {0}\nPlease check url and connectivity!'.format(str(e)))
             sys.exit(Codes.CONNECTION_PROBLEM)
-    
+
     def generate_file_name(self, temp_url):
         ''' generate the file name with timestamp or will use the name from url '''
         if(self.keepname):
-            local_file_name = temp_url.replace('\r\n', '')[temp_url.rfind('/')+1:]
+            local_file_name = temp_url.replace('\r\n', '')[temp_url.rfind('/') + 1:]
         else:
             file_extension = temp_url.replace('\r\n', '')[temp_url.rfind('.'):]
             # extract the file extension, so it is more general for any file
-            local_file_name = 'file-{0}{1}'.format(time.time(),file_extension)
+            local_file_name = 'file-{0}{1}'.format(time.time(), file_extension)
         return local_file_name
-        
+
     def generate_statistics(self, read_bytes):
         ''' generate some statistics to show the user '''
         self.read_bytes += read_bytes
         self.file_count += 1
-        
+
     def show_statistics(self):
         ''' shows information over data / files and elapsed time '''
-        print('\nReceived bytes: {0:>10} Bytes\n'.format(self.read_bytes) + 
-                'Elapsed time: {0:>10.3f} sec\n'.format(time.time()-self.begin_time) + 
-                'Files received: {0:>10}\n'.format(self.file_count) + 
-                'Work finished!')
-        
+        print('\nReceived bytes: {0:>10} Bytes\n'.format(self.read_bytes) +
+              'Elapsed time: {0:>10.3f} sec\n'.format(time.time() - self.begin_time) +
+              'Files received: {0:>10}\n'.format(self.file_count) +
+              'Work finished!')
+
     def parse_arguments(self, arguments):
         ''' parse given arguments, do it case insensitive '''
         for in_parameter in arguments:
@@ -122,24 +125,25 @@ class DataGrabber():
             # give a help about all possible arguments
             if('--help' in in_parameter.lower() or '-h' in in_parameter.lower()):
                 self.show_help()
-    
+
     def show_help(self):
         ''' display the possible arguments at commandline '''
-        print('possible arguemnts are:\n' + 
-        '-s |--single=<filepath>:\tsingle file must be given\n' +
-        '-i |--inpath=<path>:\tset the path where the txt files with url\'s lays\n' +
-        '-o |--outpath=<path>:\tset the path where the data will be stored\n'
-        '-k |--keepname:\tkeep the name of data from url\n' +
-        '-f |--force:\twill overwrite date if data with same name is available\n' +
-        '-h |--help:\tshows the help with all parameters')
+        print('possible arguemnts are:\n' +
+              '-s |--single=<filepath>:\tsingle file must be given\n' +
+              '-i |--inpath=<path>:\tset the path where the txt files with url\'s lays\n' +
+              '-o |--outpath=<path>:\tset the path where the data will be stored\n'
+              '-k |--keepname:\tkeep the name of data from url\n' +
+              '-f |--force:\twill overwrite date if data with same name is available\n' +
+              '-h |--help:\tshows the help with all parameters')
         sys.exit(Codes.SUCCESS)
+
 
 def progress_bar(current, maximum):
     ''' adds a progress bar for multiple url's '''
-    step = 100/maximum*current
-    sys.stdout.write(('='*int(step/2))+(''*(100-step))+("\r [ %d"%step+"% ] "))
+    step = 100 / maximum * current
+    sys.stdout.write(('=' * int(step / 2)) + ('' * (100 - step)) + ("\r [ %d" %step + "% ] "))
     sys.stdout.flush()
-        
+
 if __name__ == '__main__':
     dg = DataGrabber(sys.argv[1:])
     for temp_url in dg.get_url_list():
