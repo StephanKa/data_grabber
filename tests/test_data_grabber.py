@@ -19,6 +19,10 @@ class TestDataGrabber(unittest.TestCase):
             data_grabber.DataGrabber(['--help'])
         self.assertEqual(cm.exception.code, data_grabber.Codes.SUCCESS)
 
+    def test_inpath_directory(self):
+        dg = data_grabber.DataGrabber(['--inpath=../'])
+        dg.get_url_list()
+
     def test_wrong_path(self):
         dg = data_grabber.DataGrabber(['--inpath=c:\blablabla'])
         with self.assertRaises(SystemExit) as cm:
