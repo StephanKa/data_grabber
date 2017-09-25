@@ -20,7 +20,7 @@ class TestDataGrabber(unittest.TestCase):
         self.assertEqual(cm.exception.code, data_grabber.Codes.SUCCESS)
 
     def test_inpath_directory(self):
-        dg = data_grabber.DataGrabber(['--keepname --inpath=' + os.getcwd() + '\\..\\'])
+        dg = data_grabber.DataGrabber(['--keepname --inpath=' + os.getcwd()])
         dg.get_url_list()
 
     def test_wrong_path(self):
@@ -52,7 +52,7 @@ class TestDataGrabber(unittest.TestCase):
             dg.get_file_save_local(url, dg.generate_file_name(url))
 
     def test_single_file(self):
-        dg = data_grabber.DataGrabber(['--single=../url_lists.txt'])
+        dg = data_grabber.DataGrabber(['--single=url_lists.txt'])
         for url in dg.get_url_list():
             dg.get_file_save_local(url, dg.generate_file_name(url))
 
