@@ -41,7 +41,7 @@ class DataGrabber():
             for file in list_files:
                 # only .txt will be read yet but it is flexible to extend
                 if(file.endswith('.txt')):
-                    url_list.extend(self.read_text_files(open(self.input_path + '\\' + file, 'rb')))
+                    url_list.extend(self.read_text_files(open(self.input_path + '/' + file, 'rb')))
             self.list_count = len(url_list)
             return url_list
         elif(self.single_file_only):
