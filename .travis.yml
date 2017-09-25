@@ -25,5 +25,7 @@ script:
   - coverage xml -i
   - cd ..
   - sonar-scanner
+  - cd tests
+  - coverage run --branch --source=../ test_data_grabber.py
 after_success:
     - coveralls
