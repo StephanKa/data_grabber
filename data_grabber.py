@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import urllib2
+try:
+    import urllib2
+except:
+    import urllib.request
 import sys
 import os
 import time
@@ -57,6 +60,7 @@ class DataGrabber():
         ''' read url's from opened files '''
         # read all lines in txt file and save in url_list
         temp_list = temp_url_list.readlines()
+        temp_url_list.close()
         return temp_list
 
     def store_file(self, path, file_download):
@@ -64,12 +68,16 @@ class DataGrabber():
         file_data = file_download.read()
         self.generate_statistics(len(file_data))
         with open(path, 'w') as output:
-            output.write(file_data)
+            output.write(str(file_data))
 
     def get_file_save_local(self, input_url, output_file):
         ''' save the grabbed file with the generated or extracted file name '''
         try:
-            file_download = urllib2.urlopen(input_url)
+            if(sys.version_info >= (3, 0)):
+                request = urllib.request.Request(input_url)
+                file_download = urllib.request.urlopen(request)
+            else:
+                file_download = urllib2.urlopen(input_url)
             if(self.overwrite):
                 self.store_file(output_file, file_download)
             elif(os.path.exists(output_file)):

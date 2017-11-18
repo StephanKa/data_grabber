@@ -42,7 +42,7 @@ class TestDataGrabber(unittest.TestCase):
             with self.assertRaises(SystemExit) as cm:
                 dg.get_url_list()
                 dg.get_file_save_local(url, os.getcwd())
-        self.assertEqual(cm.exception.code, data_grabber.Codes.FILE_EXISTS)
+        self.assertEqual(cm.exception.code, data_grabber.Codes.CONNECTION_PROBLEM)
 
     def test_file_automatic_naming(self):
         url = 'https://pixabay.com/static/uploads/photo/2012/04/12/23/47/car-30984_960_720.png'
