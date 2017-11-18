@@ -41,12 +41,12 @@ class DataGrabber():
             for file in list_files:
                 # only .txt will be read yet but it is flexible to extend
                 if(file.endswith('.txt')):
-                    url_list.extend(self.read_text_files(open(self.input_path + '/' + file, 'rb')))
+                    url_list.extend(self.read_text_files(open(self.input_path + '/' + file, 'r')))
             self.list_count = len(url_list)
             return url_list
         elif(self.single_file_only):
             if(self.input_path.endswith('.txt')):
-                url_list.extend(self.read_text_files(open(self.input_path, 'rb')))
+                url_list.extend(self.read_text_files(open(self.input_path, 'r')))
             self.list_count = len(url_list)
             return url_list
         else:
@@ -63,7 +63,7 @@ class DataGrabber():
         ''' store the file to path '''
         file_data = file_download.read()
         self.generate_statistics(len(file_data))
-        with open(path, 'wb') as output:
+        with open(path, 'w') as output:
             output.write(file_data)
 
     def get_file_save_local(self, input_url, output_file):
@@ -75,7 +75,7 @@ class DataGrabber():
             elif(os.path.exists(output_file)):
                 print('Please delete existing file or use "--force" | "-f"!')
                 sys.exit(Codes.FILE_EXISTS)
-        except Exception as e:
+        except BaseException as e:
             print('Exception occured: {0}\nPlease check url and connectivity!'.format(str(e)))
             sys.exit(Codes.CONNECTION_PROBLEM)
 
@@ -140,7 +140,7 @@ class DataGrabber():
 def progress_bar(current, maximum):
     ''' adds a progress bar for multiple url's '''
     step = 100 / maximum * current
-    sys.stdout.write(('=' * int(step / 2)) + ('' * (100 - step)) + ("\r [ %d" %step + "% ] "))
+    sys.stdout.write(('=' * int(step / 2)) + ('' * (100 - step)) + ("\r [ %d" % step + "% ] "))
     sys.stdout.flush()
 
 if __name__ == '__main__':

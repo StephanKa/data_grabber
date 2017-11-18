@@ -12,9 +12,20 @@
 
 [![Bugs](https://sonarcloud.io/api/badges/measure?key=pyDataGrabber&metric=sqale_debt_ratio)](https://sonarcloud.io/api/badges/measure?key=pyDataGrabber&metric=sqale_debt_ratio)
 
-
 [SonarCloud](https://sonarcloud.io/dashboard?id=pyDataGrabber)
 
+## Python Support
+
+2.7
+3.3
+3.4
+3.5
+3.6
+3.6-dev
+3.7-dev
+nightly
+
+## General
 
 This tool will download data from given text files with url in it.
 

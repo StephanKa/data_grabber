@@ -14,7 +14,14 @@ addons:
     branches:
       - master
 python:
-  - 2.7
+  - "2.7"
+  - "3.3"
+  - "3.4"
+  - "3.5"
+  - "3.6"
+  - "3.6-dev"
+  - "3.7-dev" # 3.7 development branch
+  - "nightly"
 before_install:
   - pip install coveralls
 install:
